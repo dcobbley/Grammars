@@ -1,1 +1,2 @@
 C:\Users\David\Documents\GitHub\GrammarAnalyzer\GrammarAnalyzer\bin\Debug\GrammarAnalyzer.exe.config
+C:\Users\David\Documents\GitHub\Grammars\GrammarAnalyzer\GrammarAnalyzer\bin\Debug\GrammarAnalyzer.exe.config

@@ -34,8 +34,6 @@ namespace GrammarAnalyzer
         private void btn_submit_Click(object sender, EventArgs e)
         {
 
-            loadInputBuffer();
-            initStack();
         }
 
         private void loadInputBuffer()
@@ -203,6 +201,8 @@ namespace GrammarAnalyzer
 
         private void btn_Run_Click(object sender, EventArgs e)
         {
+            loadInputBuffer();
+            initStack();
             runAnalysis();
         }
     }

@@ -30,7 +30,6 @@
         {
             this.tb_StringToTest = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.btn_submit = new System.Windows.Forms.Button();
             this.btn_Run = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -50,19 +49,9 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Please enter a string here.";
             // 
-            // btn_submit
-            // 
-            this.btn_submit.Location = new System.Drawing.Point(48, 91);
-            this.btn_submit.Name = "btn_submit";
-            this.btn_submit.Size = new System.Drawing.Size(75, 23);
-            this.btn_submit.TabIndex = 2;
-            this.btn_submit.Text = "Submit";
-            this.btn_submit.UseVisualStyleBackColor = true;
-            this.btn_submit.Click += new System.EventHandler(this.btn_submit_Click);
-            // 
             // btn_Run
             // 
-            this.btn_Run.Location = new System.Drawing.Point(48, 172);
+            this.btn_Run.Location = new System.Drawing.Point(48, 79);
             this.btn_Run.Name = "btn_Run";
             this.btn_Run.Size = new System.Drawing.Size(75, 23);
             this.btn_Run.TabIndex = 3;
@@ -76,7 +65,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(448, 324);
             this.Controls.Add(this.btn_Run);
-            this.Controls.Add(this.btn_submit);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tb_StringToTest);
             this.Name = "Form1";
@@ -91,7 +79,6 @@
 
         private System.Windows.Forms.TextBox tb_StringToTest;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button btn_submit;
         private System.Windows.Forms.Button btn_Run;
     }
 }

@@ -1,2 +1,10 @@
 C:\Users\David\Documents\GitHub\GrammarAnalyzer\GrammarAnalyzer\bin\Debug\GrammarAnalyzer.exe.config
 C:\Users\David\Documents\GitHub\Grammars\GrammarAnalyzer\GrammarAnalyzer\bin\Debug\GrammarAnalyzer.exe.config
+C:\Users\David\Documents\GitHub\Grammars\GrammarAnalyzer\GrammarAnalyzer\obj\Debug\GrammarAnalyzer.csprojResolveAssemblyReference.cache
+C:\Users\David\Documents\GitHub\Grammars\GrammarAnalyzer\GrammarAnalyzer\obj\Debug\GrammarAnalyzer.Form1.resources
+C:\Users\David\Documents\GitHub\Grammars\GrammarAnalyzer\GrammarAnalyzer\obj\Debug\GrammarAnalyzer.Properties.Resources.resources
+C:\Users\David\Documents\GitHub\Grammars\GrammarAnalyzer\GrammarAnalyzer\obj\Debug\GrammarAnalyzer.csproj.GenerateResource.Cache
+C:\Users\David\Documents\GitHub\Grammars\GrammarAnalyzer\GrammarAnalyzer\bin\Debug\GrammarAnalyzer.exe
+C:\Users\David\Documents\GitHub\Grammars\GrammarAnalyzer\GrammarAnalyzer\bin\Debug\GrammarAnalyzer.pdb
+C:\Users\David\Documents\GitHub\Grammars\GrammarAnalyzer\GrammarAnalyzer\obj\Debug\GrammarAnalyzer.exe
+C:\Users\David\Documents\GitHub\Grammars\GrammarAnalyzer\GrammarAnalyzer\obj\Debug\GrammarAnalyzer.pdb

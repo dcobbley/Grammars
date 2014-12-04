@@ -55,7 +55,7 @@ namespace GrammarAnalyzer
             try
             {
                 string path = Directory.GetCurrentDirectory();
-                inputGrammar = System.IO.File.ReadAllLines(path + @"/sampleInput.txt");
+                inputGrammar = System.IO.File.ReadAllLines(path + @"/sampleInput3.txt");
 
                 //Silly Conversion in order to get element zero from the string.
                 string tempString = inputGrammar[0];
@@ -117,7 +117,7 @@ namespace GrammarAnalyzer
             string buffer = inputBuffer.Peek().ToString();
 
             //if stack is empty and inputbuffer is not, reject.
-            if (element == "$" && buffer == "$")
+            if (element == "$" && buffer != "$")
                 return false;
             //if both stack and input buffer empty, accept.
             if (element == "$" && buffer == "$")
@@ -128,7 +128,7 @@ namespace GrammarAnalyzer
 
             //if elemenet is a variable, look at next element of inputBuffer, determine which rule to use.
             //push right hand side of rule onto stack, else reject if no match.
-            if (element == element.ToUpper())
+            if (element == element.ToUpper() && element != "#")
             {
                 //element is a variable. See if the current input buffer char matches a character in the dictionary.
                 if(grammarDictionary.ContainsKey(element))
@@ -147,7 +147,7 @@ namespace GrammarAnalyzer
                 return false;
                 //reject
             }
-            else if(element != element.ToUpper())
+            else if(element != element.ToUpper()||(element == "#" && buffer == "#"))
             {
                 //If the element is a terminal, check it matches next character in input and remove both. else reject.
                 if(element == buffer.ToString())

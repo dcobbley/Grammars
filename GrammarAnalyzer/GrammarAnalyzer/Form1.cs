@@ -14,12 +14,13 @@ namespace GrammarAnalyzer
 {
     public partial class Form1 : Form
     {
-        string inputBuffer = "";
-        string inputGrammar="";
+        Stack inputBuffer = null;
+        string[] inputGrammar=null;
         Stack myStack = null;
         int count=0;
         bool acceptFlag = false;
         Dictionary<string, List<string>> grammarDictionary;
+        string startVariable = "";
 
         public Form1()
         {
@@ -32,52 +33,63 @@ namespace GrammarAnalyzer
 
         private void btn_submit_Click(object sender, EventArgs e)
         {
-            inputBuffer = tb_StringToTest.Text.ToString();
+            loadInputBuffer();
+        }
+
+        private void loadInputBuffer()
+        {
+            string input = tb_StringToTest.Text.ToString();
+            input = reverseString(input);
+            foreach (char ch in input)
+            {
+                inputBuffer.Push(ch.ToString());
+            }
         }
 
         private void getGrammar()
         {
             string path = Directory.GetCurrentDirectory();
-            inputGrammar = System.IO.File.ReadAllText(path = @"/sampleInput.txt");
+            inputGrammar = System.IO.File.ReadAllLines(path = @"/sampleInput.txt");
+
+            //Silly Conversion in order to get element zero from the string.
+            char tempChar = Convert.ToChar(inputGrammar[0]);
+            startVariable = tempChar.ToString();
         }
 
         private void initStack()
         {
             myStack = new Stack();
             myStack.Push("$");
-            myStack.Push(createDictionary());
+            createDictionary();
+            myStack.Push(startVariable);
         }
 
-        private string createDictionary()
+        private void createDictionary()
         {
             getGrammar();
             //parse the incoming grammar into a dictionary.
             grammarDictionary = new Dictionary<string, List<string>>();
-            string[] delimitedGrammar = parseFile();
-            myStack.Push(delimitedGrammar[0]);
 
-            foreach(string str in delimitedGrammar)
+            foreach(string str in inputGrammar)
             {
-                char nonTerminal;
-                if(str == str.ToUpper())
+                string nonTerminal="";
+                string[] tempSplit = str.Split(',');
+                List<string> tempList = new List<string>();
+
+                foreach(string tS in tempSplit)
                 {
-                    nonTerminal = Convert.ToChar(str);
-                }
-                else if (str != str.ToUpper())
-                {
-                    grammarDictionary.Add(nonTerminal, )
-                    //add the elements to the dictionary
-                    //grammarDictionary.Add(delimitedGrammar[0],str);
+                    if(tS == tS.ToUpper())
+                    {
+                        //its a non terminal.
+                        nonTerminal = tS;
+                    }
+                    else if(tS != tS.ToUpper())
+                    {
+                        tempList.Add(tS);
+                    }
+                    grammarDictionary.Add(nonTerminal, tempList);
                 }
             }
-            return (delimitedGrammar[0]);
-        }
-
-        private string[] parseFile()
-        {
-            string[] temp = null;
-            temp = inputGrammar.Split(',');
-            return temp;
         }
 
         private void popStack()
@@ -112,14 +124,11 @@ namespace GrammarAnalyzer
             //if both stack and input buffer empty, accept.
         }
 
-        public void pushStackBackwards(string toPush)
+        public string reverseString(string input)
         {
-            char[] arr = toPush.ToCharArray();
+            char[] arr = input.ToCharArray();
             Array.Reverse(arr);
-            string tempString = arr.ToString();
-
-            
-
+            return(arr.ToString());
         }
     }
 }

@@ -33,11 +33,14 @@ namespace GrammarAnalyzer
 
         private void btn_submit_Click(object sender, EventArgs e)
         {
+
             loadInputBuffer();
+            initStack();
         }
 
         private void loadInputBuffer()
         {
+            inputBuffer = new Stack();
             string input = tb_StringToTest.Text.ToString();
             input = reverseString(input);
             inputBuffer.Push("$");
@@ -49,12 +52,19 @@ namespace GrammarAnalyzer
 
         private void getGrammar()
         {
-            string path = Directory.GetCurrentDirectory();
-            inputGrammar = System.IO.File.ReadAllLines(path = @"/sampleInput.txt");
+            try
+            {
+                string path = Directory.GetCurrentDirectory();
+                inputGrammar = System.IO.File.ReadAllLines(path + @"/sampleInput.txt");
 
-            //Silly Conversion in order to get element zero from the string.
-            char tempChar = Convert.ToChar(inputGrammar[0]);
-            startVariable = tempChar.ToString();
+                //Silly Conversion in order to get element zero from the string.
+                string tempString = inputGrammar[0];
+                startVariable = tempString[0].ToString();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
 
         private void initStack()
@@ -79,15 +89,19 @@ namespace GrammarAnalyzer
 
                 foreach(string tS in tempSplit)
                 {
-                    if(tS == tS.ToUpper())
+                    
+                    if(tS == tS.ToUpper()&& tS != "#")
                     {
                         //its a non terminal.
                         nonTerminal = tS;
                     }
-                    else if(tS != tS.ToUpper())
+                    else if(tS != tS.ToUpper() || tS == "#")
                     {
                         tempList.Add(tS);
                     }
+                }
+                if (nonTerminal != "")
+                {
                     grammarDictionary.Add(nonTerminal, tempList);
                 }
             }
@@ -100,13 +114,13 @@ namespace GrammarAnalyzer
             //pop an element
             string element = myStack.Pop().ToString();
             //pop character from input buffer
-            char buffer = Convert.ToChar(inputBuffer.Pop());
+            string buffer = inputBuffer.Peek().ToString();
 
             //if stack is empty and inputbuffer is not, reject.
-            if (element == "$" && buffer.ToString() != "$")
+            if (element == "$" && buffer == "$")
                 return false;
             //if both stack and input buffer empty, accept.
-            if (element == "$" && buffer.ToString() == "$")
+            if (element == "$" && buffer == "$")
             {
                 acceptFlag = true;
                 return true;
@@ -123,7 +137,7 @@ namespace GrammarAnalyzer
                 }
                 foreach(string str in tempList)
                 {
-                    if(str[0] == buffer)
+                    if(str[0].ToString() == buffer)
                     {
                         //push the rule onto the stack
                         pushString(reverseString(str));
@@ -131,6 +145,9 @@ namespace GrammarAnalyzer
                     }
                     else
                     {
+
+                        //NEED TO TRY AGAIN, ONLY RETURN FALSE IF NOTHING LEFT IN TEMP LIST
+
                         return false;
                         //reject
                     }
@@ -141,6 +158,7 @@ namespace GrammarAnalyzer
                 //If the element is a terminal, check it matches next character in input and remove both. else reject.
                 if(element == buffer.ToString())
                 {
+                    inputBuffer.Pop();
                     return true;
                 }
                 else
@@ -164,7 +182,34 @@ namespace GrammarAnalyzer
         {
             char[] arr = input.ToCharArray();
             Array.Reverse(arr);
-            return(arr.ToString());
+            string temp = new string(arr);
+            return(temp);
+        }
+
+        public void runAnalysis()
+        {
+            bool flag = false;
+            while (true)
+            {
+                flag = popStack();
+                if (flag && acceptFlag)
+                {
+                    //Win
+                    MessageBox.Show("Accepted!");
+                    break;
+                }
+                else if(!flag && !acceptFlag)
+                {
+                    //FML
+                    MessageBox.Show("Failed to build String.");
+                    break;
+                }
+            }
+        }
+
+        private void btn_Run_Click(object sender, EventArgs e)
+        {
+            runAnalysis();
         }
     }
 }

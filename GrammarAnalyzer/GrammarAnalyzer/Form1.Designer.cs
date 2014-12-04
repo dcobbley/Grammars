@@ -31,6 +31,7 @@
             this.tb_StringToTest = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btn_submit = new System.Windows.Forms.Button();
+            this.btn_Run = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // tb_StringToTest
@@ -59,11 +60,22 @@
             this.btn_submit.UseVisualStyleBackColor = true;
             this.btn_submit.Click += new System.EventHandler(this.btn_submit_Click);
             // 
+            // btn_Run
+            // 
+            this.btn_Run.Location = new System.Drawing.Point(48, 172);
+            this.btn_Run.Name = "btn_Run";
+            this.btn_Run.Size = new System.Drawing.Size(75, 23);
+            this.btn_Run.TabIndex = 3;
+            this.btn_Run.Text = "Run Analysis";
+            this.btn_Run.UseVisualStyleBackColor = true;
+            this.btn_Run.Click += new System.EventHandler(this.btn_Run_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(448, 324);
+            this.Controls.Add(this.btn_Run);
             this.Controls.Add(this.btn_submit);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tb_StringToTest);
@@ -80,6 +92,7 @@
         private System.Windows.Forms.TextBox tb_StringToTest;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btn_submit;
+        private System.Windows.Forms.Button btn_Run;
     }
 }
 

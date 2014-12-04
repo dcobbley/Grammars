@@ -40,9 +40,10 @@ namespace GrammarAnalyzer
         {
             string input = tb_StringToTest.Text.ToString();
             input = reverseString(input);
+            inputBuffer.Push("$");
             foreach (char ch in input)
             {
-                inputBuffer.Push(ch.ToString());
+                inputBuffer.Push(ch);
             }
         }
 
@@ -92,36 +93,71 @@ namespace GrammarAnalyzer
             }
         }
 
-        private void popStack()
+        private bool popStack()
         {
+            //create a list to grab from the dictionary.
+            List<string> tempList=null;
             //pop an element
             string element = myStack.Pop().ToString();
+            //pop character from input buffer
+            char buffer = Convert.ToChar(inputBuffer.Pop());
+
+            //if stack is empty and inputbuffer is not, reject.
+            if (element == "$" && buffer.ToString() != "$")
+                return false;
+            //if both stack and input buffer empty, accept.
+            if (element == "$" && buffer.ToString() == "$")
+            {
+                acceptFlag = true;
+                return true;
+            }
 
             //if elemenet is a variable, look at next element of inputBuffer, determine which rule to use.
             //push right hand side of rule onto stack, else reject if no match.
             if (element == element.ToUpper())
             {
                 //element is a variable. See if the current input buffer char matches a character in the dictionary.
-                //inputBuffer[0];
-                /*foreach (KeyValuePair<string, string> kvp in grammarDictionary)
+                if(grammarDictionary.ContainsKey(element))
                 {
-                    if(kvp.Key == element)
+                    tempList = grammarDictionary[element];
+                }
+                foreach(string str in tempList)
+                {
+                    if(str[0] == buffer)
                     {
-                        //The non terminals match
-                        if(kvp.Value[0] == inputBuffer[count])
-                        {
-                            //push the dictionary value onto the stack backwards.
-                            pushStackBackwards(kvp.Value);
-                        }
+                        //push the rule onto the stack
+                        pushString(reverseString(str));
+                        return true;
                     }
-                }*/
+                    else
+                    {
+                        return false;
+                        //reject
+                    }
+                }
+            }
+            else if(element != element.ToUpper())
+            {
+                //If the element is a terminal, check it matches next character in input and remove both. else reject.
+                if(element == buffer.ToString())
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
 
             }
-            //If the element is a terminal, check it matches next character in input and remove both. else reject.
-
-            //if stack is empty and inputbuffer is not, reject.
-
-            //if both stack and input buffer empty, accept.
+            return false;
+        }
+        
+        public void pushString(string toPush)
+        {
+            foreach(char str in toPush)
+            {
+                myStack.Push(str);
+            }
         }
 
         public string reverseString(string input)

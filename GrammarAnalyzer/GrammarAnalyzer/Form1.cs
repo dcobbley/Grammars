@@ -137,21 +137,15 @@ namespace GrammarAnalyzer
                 }
                 foreach(string str in tempList)
                 {
-                    if(str[0].ToString() == buffer)
-                    {
-                        //push the rule onto the stack
-                        pushString(reverseString(str));
-                        return true;
-                    }
-                    else
-                    {
-
-                        //NEED TO TRY AGAIN, ONLY RETURN FALSE IF NOTHING LEFT IN TEMP LIST
-
-                        return false;
-                        //reject
-                    }
+                    if (str[0].ToString() == buffer)
+                        {
+                            //push the rule onto the stack
+                            pushString(reverseString(str));
+                            return true;
+                        }
                 }
+                return false;
+                //reject
             }
             else if(element != element.ToUpper())
             {

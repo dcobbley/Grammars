@@ -35,7 +35,7 @@
             // 
             // tb_StringToTest
             // 
-            this.tb_StringToTest.Location = new System.Drawing.Point(48, 53);
+            this.tb_StringToTest.Location = new System.Drawing.Point(145, 240);
             this.tb_StringToTest.Name = "tb_StringToTest";
             this.tb_StringToTest.Size = new System.Drawing.Size(144, 20);
             this.tb_StringToTest.TabIndex = 0;
@@ -43,7 +43,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(45, 26);
+            this.label1.Location = new System.Drawing.Point(142, 213);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(130, 13);
             this.label1.TabIndex = 1;
@@ -51,7 +51,7 @@
             // 
             // btn_Run
             // 
-            this.btn_Run.Location = new System.Drawing.Point(48, 79);
+            this.btn_Run.Location = new System.Drawing.Point(145, 266);
             this.btn_Run.Name = "btn_Run";
             this.btn_Run.Size = new System.Drawing.Size(75, 23);
             this.btn_Run.TabIndex = 3;
@@ -63,7 +63,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(448, 324);
+            this.ClientSize = new System.Drawing.Size(830, 314);
             this.Controls.Add(this.btn_Run);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tb_StringToTest);

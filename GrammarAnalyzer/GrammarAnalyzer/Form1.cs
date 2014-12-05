@@ -17,10 +17,11 @@ namespace GrammarAnalyzer
         Stack inputBuffer = null;
         string[] inputGrammar=null;
         Stack myStack = null;
-        int count=0;
         bool acceptFlag = false;
         Dictionary<string, List<string>> grammarDictionary;
         string startVariable = "";
+        string inputPath = "";
+        System.Windows.Forms.RadioButton[] radioButtons = null; 
 
         public Form1()
         {
@@ -29,6 +30,7 @@ namespace GrammarAnalyzer
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            listInputGrammarFiles();
         }
 
         private void btn_submit_Click(object sender, EventArgs e)
@@ -48,12 +50,47 @@ namespace GrammarAnalyzer
             }
         }
 
+        private void listInputGrammarFiles()
+        {
+            string path = Directory.GetCurrentDirectory();
+            string[] fileEntries = Directory.GetFiles(path);
+            int count = 0;
+            List<string> shortFileName = new List<string>();
+            string reversed = "";
+            string[] tempString;
+
+            foreach(string str in fileEntries)
+            {
+                if (str.Contains("sample"))
+                {
+                    ++count;
+
+                    //grab the string, reverse it, chop off when first \ encountered, put in new string array.
+                    reversed = reverseString(str);
+                    tempString = reversed.Split('\\');
+                    shortFileName.Add(reverseString(tempString[0]));
+                }
+            }
+
+            radioButtons = new System.Windows.Forms.RadioButton[count];
+            count = 0;
+            foreach (string str in shortFileName)
+            {
+                    radioButtons[count] = new RadioButton();
+                    radioButtons[count].Text = str;
+                    radioButtons[count].Location = new System.Drawing.Point( 10, 10 + count * 20);
+                    this.Controls.Add(radioButtons[count]);
+                    ++count;
+            }
+
+        }
+
         private void getGrammar()
         {
             try
             {
                 string path = Directory.GetCurrentDirectory();
-                inputGrammar = System.IO.File.ReadAllLines(path + @"/sampleInput3.txt");
+                inputGrammar = System.IO.File.ReadAllLines(path + @"/"+ inputPath);
 
                 //Silly Conversion in order to get element zero from the string.
                 string tempString = inputGrammar[0];
@@ -201,9 +238,21 @@ namespace GrammarAnalyzer
 
         private void btn_Run_Click(object sender, EventArgs e)
         {
-            loadInputBuffer();
-            initStack();
-            runAnalysis();
+            foreach(RadioButton rb in radioButtons)
+            {
+                if (rb.Checked)
+                    inputPath = rb.Text.ToString();
+            }
+            if (inputPath != "")
+            {
+                loadInputBuffer();
+                initStack();
+                runAnalysis();
+            }
+            else if(inputPath == "")
+            {
+                MessageBox.Show("Please pick an input text file.");
+            }
         }
     }
 }

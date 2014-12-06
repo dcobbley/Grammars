@@ -1,4 +1,9 @@
-﻿using System;
+﻿//David Cobbley
+//Context free grammar analyzer
+//CS311
+//12-5-14
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -120,20 +125,23 @@ namespace GrammarAnalyzer
 
                 foreach(string tS in tempSplit)
                 {
-                    
+                    //check if the char is uppercase and a bool flag has not been set.
                     if(tS == tS.ToUpper()&& tS != "#" && !nonTerminalFlag)
                     {
                         //its a non terminal.
                         nonTerminal = tS;
+                        //This flag gets set when the non terminal has been set, after that, any uppercase characters will just be part of the production.
                         nonTerminalFlag = true;
                     }
                     else if(tS != nonTerminal || tS == "#")
                     {
+                        //add to the list that will eventually be put in the dictionary as a production under a non terminal.
                         tempList.Add(tS);
                     }
                 }
                 if (nonTerminal != "")
                 {
+                    //My file reader is reading in mysterious blank lines, not sure why. 
                     grammarDictionary.Add(nonTerminal, tempList);
                 }
             }
@@ -186,6 +194,7 @@ namespace GrammarAnalyzer
                 //If the element is a terminal, check it matches next character in input and remove both. else reject.
                 if(element == buffer.ToString())
                 {
+                    //we used peek earlier, but we no longer wish this value to be in the stack.
                     inputBuffer.Pop();
                     return true;
                 }
@@ -202,12 +211,14 @@ namespace GrammarAnalyzer
         {
             foreach(char str in toPush)
             {
+                //pusing a string into the stack one element at a time.
                 myStack.Push(str);
             }
         }
 
         public string reverseString(string input)
         {
+            //reverses a string so that it can go into the stack in the proper order.
             char[] arr = input.ToCharArray();
             Array.Reverse(arr);
             string temp = new string(arr);
@@ -219,6 +230,7 @@ namespace GrammarAnalyzer
             bool flag = false;
             while (true)
             {
+                //Wouldn't need these flags except I decided to be dumb and not use recursion.... Lame.
                 flag = popStack();
                 if (flag && acceptFlag)
                 {
@@ -234,10 +246,18 @@ namespace GrammarAnalyzer
                 }
             }
         }
-
-        private void btn_Run_Click(object sender, EventArgs e)
+        private void runAll()
         {
-            foreach(RadioButton rb in radioButtons)
+            //reset any globals.
+            myStack = null;
+            inputBuffer = null;
+            inputGrammar = null;
+            acceptFlag = false;
+            grammarDictionary = null;
+            startVariable = "";
+            inputPath = "";
+
+            foreach (RadioButton rb in radioButtons)
             {
                 if (rb.Checked)
                     inputPath = rb.Text.ToString();
@@ -248,9 +268,22 @@ namespace GrammarAnalyzer
                 initStack();
                 runAnalysis();
             }
-            else if(inputPath == "")
+            else if (inputPath == "")
             {
                 MessageBox.Show("Please pick an input text file.");
+            }
+        }
+        private void btn_Run_Click(object sender, EventArgs e)
+        {
+            runAll();
+        }
+        
+        private void tb_StringToTest_KeyDown(object sender, KeyEventArgs e)
+        {
+            //you can press enter in the windows form to submit a string for checking.
+            if(e.KeyCode == Keys.Enter)
+            {
+                runAll();
             }
         }
     }

@@ -39,6 +39,7 @@
             this.tb_StringToTest.Name = "tb_StringToTest";
             this.tb_StringToTest.Size = new System.Drawing.Size(144, 20);
             this.tb_StringToTest.TabIndex = 0;
+            this.tb_StringToTest.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tb_StringToTest_KeyDown);
             // 
             // label1
             // 

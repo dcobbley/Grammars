@@ -1,3 +1,0 @@
-S,AB,A,B
-A,aA,a
-B,bB,b

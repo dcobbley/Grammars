@@ -33,11 +33,6 @@ namespace GrammarAnalyzer
             listInputGrammarFiles();
         }
 
-        private void btn_submit_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void loadInputBuffer()
         {
             inputBuffer = new Stack();
@@ -119,18 +114,20 @@ namespace GrammarAnalyzer
             foreach(string str in inputGrammar)
             {
                 string nonTerminal="";
+                bool nonTerminalFlag = false;
                 string[] tempSplit = str.Split(',');
                 List<string> tempList = new List<string>();
 
                 foreach(string tS in tempSplit)
                 {
                     
-                    if(tS == tS.ToUpper()&& tS != "#")
+                    if(tS == tS.ToUpper()&& tS != "#" && !nonTerminalFlag)
                     {
                         //its a non terminal.
                         nonTerminal = tS;
+                        nonTerminalFlag = true;
                     }
-                    else if(tS != tS.ToUpper() || tS == "#")
+                    else if(tS != nonTerminal || tS == "#")
                     {
                         tempList.Add(tS);
                     }
@@ -172,6 +169,8 @@ namespace GrammarAnalyzer
                 }
                 foreach(string str in tempList)
                 {
+                    //Need to see if character is a non terminal??
+
                     if (str[0].ToString() == buffer)
                         {
                             //push the rule onto the stack
